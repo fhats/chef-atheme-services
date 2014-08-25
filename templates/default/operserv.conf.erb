@@ -1,0 +1,48 @@
+/* OperServ modules.
+ *
+ * Here you can disable or enable certain features of OperServ, by
+ * defining which modules are loaded.
+ *
+ * Core components                              modules/operserv/main
+ * AKILL system                                 modules/operserv/akill
+ * CLEARCHAN command                            modules/operserv/clearchan
+ * CLONES system                                modules/operserv/clones
+ * COMPARE command                              modules/operserv/compare
+ * GREPLOG command                              modules/operserv/greplog
+ * HELP command                                 modules/operserv/help
+ * IGNORE system                                modules/operserv/ignore
+ * IDENTIFY command                             modules/operserv/identify
+ * INFO command                                 modules/operserv/info
+ * INJECT command                               modules/operserv/inject
+ * JUPE command                                 modules/operserv/jupe
+ * MODE command                                 modules/operserv/mode
+ * MODINSPECT command                           modules/operserv/modinspect
+ * MODLIST command                              modules/operserv/modlist
+ * MODLOAD command                              modules/operserv/modload
+ * MODRELOAD command                            modules/operserv/modreload
+ * MODUNLOAD command                            modules/operserv/modunload
+ * NOOP system                                  modules/operserv/noop
+ * Override access (OVERRIDE command)           modules/operserv/override
+ * Regex mass akill (RAKILL command)            modules/operserv/rakill
+ * RAW command                                  modules/operserv/raw
+ * READONLY command                             modules/operserv/readonly
+ * REHASH command                               modules/operserv/rehash
+ * RESTART command                              modules/operserv/restart
+ * Display regex matching (RMATCH command)      modules/operserv/rmatch
+ * Most common realnames (RNC command)          modules/operserv/rnc
+ * RWATCH system                                modules/operserv/rwatch
+ * Temporarily modify config options (SET command)  modules/operserv/set
+ * SGLINE system                                modules/operserv/sgline
+ * SHUTDOWN command                             modules/operserv/shutdown
+ * Non-config oper privileges (SOPER command)   modules/operserv/soper
+ * Oper privilege display (SPECS command)       modules/operserv/specs
+ * SQLINE system                                modules/operserv/sqline
+ * UPDATE command                               modules/operserv/update
+ * UPTIME command                               modules/operserv/uptime
+ */
+
+loadmodule "modules/operserv/main";
+
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/operserv/<%= modname %>";<% end %>
+<% end %>

@@ -1,0 +1,78 @@
+/* ChanServ modules.
+ * 
+ * Here you can disable or enable certain features of ChanServ, by
+ * defining which modules are loaded. You can even disable ChanServ
+ * entirely. Please note that ChanServ requires an authentication
+ * service, either NickServ or UserServ will do.
+ *
+ * Core components                              modules/chanserv/main
+ * ACCESS command (simplified ACL editing)      modules/chanserv/access
+ * AKICK command                                modules/chanserv/akick
+ * BAN/UNBAN commands                           modules/chanserv/ban
+ * UNBAN self only (load ban or this not both)  modules/chanserv/unban_self
+ * CLOSE command                                modules/chanserv/close
+ * CLONE command                                modules/chanserv/clone
+ * CLEAR command                                modules/chanserv/clear
+ * CLEAR BANS command                           modules/chanserv/clear_bans
+ * CLEAR FLAGS command                          modules/chanserv/clear_flags
+ * CLEAR USERS command                          modules/chanserv/clear_users
+ * COUNT command                                modules/chanserv/count
+ * DROP command                                 modules/chanserv/drop
+ * Forced flags changes                         modules/chanserv/fflags
+ * FLAGS command                                modules/chanserv/flags
+ * Forced foundership transfers                 modules/chanserv/ftransfer
+ * GETKEY command                               modules/chanserv/getkey
+ * HALFOP/DEHALFOP commands                     modules/chanserv/halfop
+ * HELP command                                 modules/chanserv/help
+ * Channel expiry override (HOLD command)       modules/chanserv/hold
+ * INFO command                                 modules/chanserv/info
+ * INVITE command                               modules/chanserv/invite
+ * KICK/KICKBAN commands                        modules/chanserv/kick
+ * LIST command                                 modules/chanserv/list
+ * MARK command                                 modules/chanserv/mark
+ * Moderated channel registrations              modules/chanserv/moderate
+ * OP/DEOP commands                             modules/chanserv/op
+ * OWNER/DEOWNER commands                       modules/chanserv/owner
+ * PROTECT/DEPROTECT commands                   modules/chanserv/protect
+ * QUIET command (+q support)                   modules/chanserv/quiet
+ * Channel takeover recovery (RECOVER command)  modules/chanserv/recover
+ * REGISTER command                             modules/chanserv/register
+ * SET command core                             modules/chanserv/set_core
+ * SET EMAIL command                            modules/chanserv/set_email
+ * SET ENTRYMSG command                         modules/chanserv/set_entrymsg
+ * SET FANTASY command                          modules/chanserv/set_fantasy
+ * SET FOUNDER command                          modules/chanserv/set_founder
+ * SET GAMESERV command                         modules/chanserv/set_gameserv
+ * SET GUARD command                            modules/chanserv/set_guard
+ * SET KEEPTOPIC command                        modules/chanserv/set_keeptopic
+ * SET LIMITFLAGS command                       modules/chanserv/set_limitflags
+ * SET MLOCK command                            modules/chanserv/set_mlock
+ * SET PREFIX command                           modules/chanserv/set_prefix
+ * Channel info hiding (SET PRIVATE command)    modules/chanserv/set_private
+ * SET PROPERTY command                         modules/chanserv/set_property
+ * SET RESTRICTED command                       modules/chanserv/set_restricted
+ * SET SECURE command                           modules/chanserv/set_secure
+ * SET TOPICLOCK command                        modules/chanserv/set_topiclock
+ * SET URL command                              modules/chanserv/set_url
+ * SET VERBOSE command                          modules/chanserv/set_verbose
+ * STATUS command                               modules/chanserv/status
+ * SYNC command (and automatic ACL syncing)     modules/chanserv/sync
+ * Named Successor ACL flag                     modules/chanserv/successor_acl
+ * Channel metadata viewer (TAXONOMY command)   modules/chanserv/taxonomy
+ * TEMPLATE command                             modules/chanserv/template
+ * TOPIC/TOPICAPPEND commands                   modules/chanserv/topic
+ * VOICE/DEVOICE commands                       modules/chanserv/voice
+ * WHY command                                  modules/chanserv/why
+ * VOP/HOP/AOP/SOP commands                     modules/chanserv/xop
+ *  This module provides emulation of the ircservices XOP scheme ONLY.
+ *  Do not report discrepencies when using native commands to edit channel
+ *  ACLs. This is intentional.
+ * Flood protection                             modules/chanserv/antiflood
+ *  This module should be loaded after at least chanserv/quiet if you want
+ *  the autoquiet feature to work.
+ */
+loadmodule "modules/chanserv/main";
+
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/chanserv/<%= modname %>";<% end %>
+<% end %>

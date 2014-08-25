@@ -1,0 +1,22 @@
+/* MemoServ modules.
+ *
+ * Here you can disable or enable certain features of MemoServ, by
+ * defining which modules are loaded. You can even disable MemoServ
+ * entirely.
+ *
+ * Core components                              modules/memoserv/main
+ * HELP command                                 modules/memoserv/help
+ * SEND command                                 modules/memoserv/send
+ * Channel memos (SENDOPS command)              modules/memoserv/sendops
+ * Group memos (SENDGROUP command)              modules/memoserv/sendgroup
+ * LIST command                                 modules/memoserv/list
+ * READ command                                 modules/memoserv/read
+ * FORWARD command                              modules/memoserv/forward
+ * DELETE command                               modules/memoserv/delete
+ * IGNORE command                               modules/memoserv/ignore
+ */
+loadmodule "modules/memoserv/main";
+
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/memoserv/<%= modname %>";<% end %>
+<% end %>

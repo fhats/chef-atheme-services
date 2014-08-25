@@ -1,0 +1,23 @@
+/* HostServ modules.
+ *
+ * Here you can disable or enable certain features of HostServ, by
+ * defining which modules are loaded. You can even disable HostServ
+ * entirely.
+ *
+ * HostServ is a more complex, and optional virtual host management service.
+ * Users wishing only to set vhosts need not use it (they can use the builtin
+ * vhost management of NickServ instead).
+ *
+ * Core components                              modules/hostserv/main
+ * HELP command                                 modules/hostserv/help
+ * OFFER system                                 modules/hostserv/offer
+ * ON and OFF commands                          modules/hostserv/onoff
+ * REQUEST system                               modules/hostserv/request
+ * VHOST and LISTVHOST commands                 modules/hostserv/vhost
+ * VHOSTNICK command                            modules/hostserv/vhostnick
+ * GROUP command                                modules/hostserv/group
+ */
+loadmodule "modules/hostserv/main";
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/hostserv/<%= modname %>";<% end %>
+<% end %>

@@ -1,0 +1,15 @@
+/* HelpServ modules.
+ * HelpServ allows users to request help from network staff in a few different ways.
+ *
+ * Core components                              modules/helpserv/main
+ * HELPME command                               modules/helpserv/helpme
+ * Help Ticket system                           modules/helpserv/ticket
+ * Service List                                 modules/helpserv/services
+ *
+ * The ticket system works like a bugtracker ot helpdesk ticket system, HELPME
+ * works like a one-time alert. You should probably only load one of the two systems.
+ */
+loadmodule "modules/helpserv/main";
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/helpserv/<%= modname %>";<% end %>
+<% end %>

@@ -1,0 +1,32 @@
+/* GroupServ module.
+ * GroupServ allows users to create groups to easily mass-manage channel
+ * access and more.
+ *
+ * Core components                              modules/groupserv/main
+ * ACSNOLIMIT command                           modules/groupserv/acsnolimit
+ * DROP command                                 modules/groupserv/drop
+ * FDROP command                                modules/groupserv/fdrop
+ * FFLAGS command                               modules/groupserv/fflags
+ * FLAGS command                                modules/groupserv/flags
+ * HELP command                                 modules/groupserv/help
+ * INFO command                                 modules/groupserv/info
+ * JOIN command                                 modules/groupserv/join
+ * LIST command                                 modules/groupserv/list
+ * LISTCHANS command                            modules/groupserv/listchans
+ * REGISTER command                             modules/groupserv/register
+ * REGNOLIMIT command                           modules/groupserv/regnolimit
+ * INVITE command                               modules/groupserv/invite
+ * SET command                                  modules/groupserv/set
+ * SET CHANNEL command                          modules/groupserv/set_channel
+ * SET DESCRIPTION command                      modules/groupserv/set_description
+ * SET EMAIL command                            modules/groupserv/set_email
+ * SET JOINFLAGS command                        modules/groupserv/set_joinflags
+ * SET OPEN command                             modules/groupserv/set_open
+ * SET PUBLIC command                           modules/groupserv/set_public
+ * SET URL command                              modules/groupserv/set_url
+ *
+ */
+loadmodule "modules/groupserv/main";
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/groupserv/<%= modname %>";<% end %>
+<% end %>

@@ -1,0 +1,23 @@
+/* SASL agent module.
+ *
+ * Allows clients to authenticate to services via SASL with an appropriate
+ * ircd. You need the core components and at least one mechanism.
+ *
+ * Core components                              modules/saslserv/main
+ * PLAIN mechanism                              modules/saslserv/plain
+ * DH-BLOWFISH mechanism (DEPRECATED)           modules/saslserv/dh-blowfish
+ * DH-AES mechanism                             modules/saslserv/dh-aes
+ * ECDSA-NIST256p-CHALLENGE                     modules/saslserv/ecdsa-nist256p-challenge
+ * AUTHCOOKIE mechanism (for IRIS)              modules/saslserv/authcookie
+ * EXTERNAL mechanism (IRCv3.1+)                modules/saslserv/external
+ *
+ * DH-BLOWFISH has potential issues with weak keys unless the DH parameters
+ * are selected to avoid them. Its use is discouraged. Use DH-AES and/or
+ * ECDSA-NIST256p-CHALLENGE if at all possible.
+ *
+ * DH-BLOWFISH, DH-AES, and ECDSA-NIST256p-CHALLENGE all require SSL.
+ */
+loadmodule "modules/saslserv/main";
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/saslserv/<%= modname %>";<% end %>
+<% end %>

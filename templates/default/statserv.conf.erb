@@ -1,0 +1,12 @@
+/* StatServ module.
+ * StatServ provides basic statistics and split tracking.
+ *
+ * Core components                              modules/statserv/main
+ * CHANNEL command                              modules/statserv/channel
+ * NETSPLIT command                             modules/statserv/netsplit
+ * SERVER command                               modules/statserv/server
+ */
+loadmodule "modules/statserv/main";
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/statserv/<%= modname %>";<% end %>
+<% end %>

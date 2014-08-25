@@ -1,0 +1,19 @@
+/* BotServ modules.
+ *
+ * Here you can disable or enable certain features of BotServ, by
+ * defining which modules are loaded. You can even disable BotServ
+ * entirely.
+ *
+ * Core components                              modules/botserv/main
+ * HELP command                                 modules/botserv/help
+ * INFO command                                 modules/botserv/info
+ * NPC commands (SAY, ACT)                      modules/botserv/bottalk
+ * SET command (required for SET commands)      modules/botserv/set_core
+ * SET FANTASY command                          modules/botserv/set_fantasy
+ * SET NOBOT command                            modules/botserv/set_nobot
+ * SET PRIVATE command                          modules/botserv/set_private
+ */
+loadmodule "modules/botserv/main";
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/botserv/<%= modname %>";<% end %>
+<% end %>

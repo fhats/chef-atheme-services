@@ -1,0 +1,18 @@
+/* RPGServ modules.
+ *
+ * Here you can disable or enable certain features of RPGServ, by
+ * defining which modules are loaded. You can even disable RPGServ
+ * entirely.
+ *
+ * Core components                              modules/rpgserv/main
+ * ENABLE/DISABLE commands                      modules/rpgserv/enable
+ * HELP command                                 modules/rpgserv/help
+ * INFO command                                 modules/rpgserv/info
+ * LIST command                                 modules/rpgserv/list
+ * SEARCH command                               modules/rpgserv/search
+ * SET commands                                 modules/rpgserv/set
+ */
+loadmodule "modules/rpgserv/main";
+<% @config['modules'].each do |modname, enabled| %>
+<% if enabled %>loadmodule "modules/rpgserv/<%= modname %>";<% end %>
+<% end %>
