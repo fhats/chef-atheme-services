@@ -103,139 +103,29 @@ serverinfo {
 	hidehostsuffix = "<%= @config['serverinfo']['hidehostsuffix'] %>";
 	adminname = "<%= @config['serverinfo']['adminname'] %>";
 	adminemail = "<%= @config['serverinfo']['adminemail'] %>";
-
-	/* (*)registeremail
-	 * The email address that messages should be originated from.
-	 * If this is not set, then "noreply.$adminemail" will be used.
-	 */
-	registeremail = "noreply@admin.tld";
-
-	/* (*)hidden
-	 * If this is enabled, Atheme will indicate to the uplink IRCd
-	 * that it should not be included in /links output.  This only works
-	 * on the following IRCds at present: charybdis, hybrid, ircd-seven,
-	 * ratbox, shadowircd, sporksircd.
-	 */
-	#hidden;
-
-	/* (*)mta
-	 * The full path to your mail transfer agent.
-	 * This is used for email authorization and password retrieval.
-	 * Comment this out to disable sending email.
-	 * Warning: sending email can disclose the IP of your services
-	 * unless you take precautions (not discussed here further).
-	 */
-	mta = "/usr/sbin/sendmail";
-
-	/* (*)loglevel
-	 * Specify the default categories of logging information to record
-	 * in the master Atheme logfile, usually var/atheme.log.
-	 *
-	 * Options include:
-	 *      debug, all      - meta-keyword for all possible categories
-	 *      trace           - meta-keyword for a little bit of info
-	 *      misc            - like trace, but with some more miscillaneous info
-	 *      notice          - meta-keyword for notice-like information
-	 * ------------------------------------------------------------------------------
-	 *      error           - critical errors
-	 *      info            - miscillaneous log notices
-	 *      verbose         - A bit more verbose than info, not quite as spammy as debug
-	 *      commands        - all command use
-	 *      admin           - administrative command use
-	 *      register        - account and channel registrations
-	 *      set             - changes of account or channel settings
-	 *      request         - user requests (currently only vhosts)
-	 *      network         - log notices related to network status
-	 *      rawdata         - log raw data sent and received by services
-	 *      wallops         - <not yet used>
-	 */
-	loglevel = { error; info; admin; network; wallops; };
-
-	/* (*)maxlogins
-	 * What is the maximum number of sessions allowed to login to one
-	 * username? This reduces potential abuse. It is only checked on login.
-	 */
-	maxlogins = 5;
-
-	/* (*)maxusers
-	 * What are the maximum usernames that one email address can register?
-	 * Set to 0 to disable this check (it can be slow currently).
-	 */
-	maxusers = 5;
-
-	/* (*)mdlimit
-	 * How many metadata entries can be added to an object?
-	 */
-	mdlimit = 30;
-
-	/* (*)emaillimit, emailtime
-	 * The maximum number of emails allowed to be sent in
-	 * that amount of time (seconds). If this is exceeded,
-	 * wallops will be sent, at most one per minute.
-	 */
-	emaillimit = 10;
-	emailtime = 300;
-
-	/* (*)auth
-	 * What type of username registration authorization do you want?
-	 * If "email", Atheme will send a confirmation email to the address to
-	 * ensure it's valid. If registration is not completed within one day,
-	 * the username will expire. If "none", no message will be sent and
-	 * the username will be fully registered.
-	 * Valid values are: email, none.
-	 */
-	auth = none;
-
-	/* casemapping
-	 * Specify the casemapping to use. Almost all TSora (and any that follow
-	 * the RFC correctly) ircds will use rfc1459 casemapping. Bahamut, Unreal,
-	 * and other ``Dalnet'' ircds will use ascii casemapping.
-	 * Valid values are: rfc1459, ascii.
-	 */
-	casemapping = rfc1459;
+	<%= optional_directive("registeremail", @config['serverinfo'], "registeremail") %>
+	<%= optional_boolean_directive("hidden", @config['serverinfo'], "hidden") %>
+	<%= optional_directive("mta", @config['serverinfo'], "mta") %>
+	loglevel = {<% @config['serverinfo']['loglevel'].each do |lvl| %>
+		<%= lvl %>;<% end %>
+	};
+	maxlogins = <%= @config['serverinfo']['maxlogins'] %>;
+	maxusers = <%= @config['serverinfo']['maxusers'] %>;
+	mdlimit = <%= @config['serverinfo']['mdlimit'] %>;
+	emaillimit = <%= @config['serverinfo']['emaillimit'] %>;
+	emailtime = <%= @config['serverinfo']['emailtime'] %>;
+	auth = <%= @config['serverinfo']['auth'] %>;
+	casemapping = <%= @config['serverinfo']['casemapping'] %>;
 };
 
-/* uplink{} blocks define connections to IRC servers.
- * Multiple may be defined but only one will be used at a time (IRC
- * being a tree shaped network). Atheme does not currently link over SSL.
- * To link Atheme over ssl, please connect Atheme to a local ircd and have that
- * connect to your network over SSL.
- */
-uplink "irc.example.net" {
-	// The server name of the ircd you're linking to goes above.
-
-	// host
-	// The hostname to connect to.
-	host = "127.0.0.1";
-
-	// vhost
-	// The source IP to connect from, used on machines with multiple interfaces.
-	#vhost = "192.0.2.5";
-
-	// send_password
-	// The password sent for linking.
-	send_password = "mypassword";
-
-	// receive_password
-	// The password received for linking.
-	receive_password = "theirpassword";
-
-	// port
-	// The port to connect to.
-	port = 6667;
-};
-
-/* this is an example for using an IPv6 address as an uplink */
-uplink "irc6.example.net" {
-	host = "::1";
-
-	// password
-	// If you want to have same send_password and accept_password, you
-	// can specify both using 'password' instead of individually.
-	password = "linkage";
-
-	port = 6667;
-};
+<% @config['uplinks'].each do |uplink, cfg| %>
+uplink "<%= uplink %>" {
+	host = "<%= cfg['host'] %>";
+	port = "<%= cfg['port'] %>";
+	receive_password = "<%= cfg['receive_password'] %>";
+	send_password = "<%= cfg['send_password'] %>";
+	vhost = "<%= cfg['vhost'] %>";
+};<% end %>
 
 /* Services configuration.
  *
@@ -243,119 +133,6 @@ uplink "irc6.example.net" {
  * Several of them also have options specific to the service.
  */
 
-/* NickServ configuration.
- *
- * The nickserv {} block contains settings specific to the NickServ modules.
- *
- * NickServ provides nickname or username registration and authentication
- * services. It provides necessary authentication features required for
- * Services to operate correctly. You should make sure these settings
- * are properly configured for your network.
- */
-nickserv {
-	/* (*)spam
-	 * Have NickServ tell people about how great it and ChanServ are.
-	 */
-	spam;
-
-	/* no_nick_ownership
-	 * Enable this to disable nickname ownership (old userserv{}).
-	 * This changes changes "nickname" to "account" in most messages,
-	 * disables GHOST on users not logged in to the same account and
-	 * makes the spam directive ineffective.
-	 * It is suggested that the nick be set to UserServ, login.so
-	 * be loaded instead of identify.so and ghost.so not be loaded.
-	 */
-	#no_nick_ownership;
-
-	/* (*)nick
-	 * The nickname we want NickServ to have.
-	 */
-	nick = "NickServ";
-
-	/* (*)user
-	 * The username we want NickServ to have.
-	 */
-	user = "NickServ";
-
-	/* (*)host
-	 * The hostname we want NickServ to have.
-	 */
-	host = "services.int";
-
-	/* (*)real
-	 * The realname (gecos) information we want NickServ to have.
-	 */
-	real = "Nickname Services";
-
-	/* (*)aliases
-	 * Command aliases for NickServ.
-	 */
-	aliases {
-		"ID" = "IDENTIFY";
-		"MYACCESS" = "LISTCHANS";
-	};
-
-	/* (*)access
-	 * This block allows you to modify the access level required to run
-	 * commands. The list of possible accesses are listed in the operclass
-	 * section later in this .conf . Note that you can only set the access
-	 * on an actual command, not an alias.
-	 */
-	access {
-	};
-
-	/* (*)maxnicks
-	 * If GROUP is loaded, what are the maximum nicknames that one
-	 * username can register?
-	 */
-	maxnicks = 5;
-
-	/* (*)expire
-	 * The number of days before inactive registrations are expired.
-	 */
-	expire = 30;
-
-	/* (*)enforce_expire
-	 * The number of days of no use after which to ignore enforcement
-	 * settings on nicks.
-	 */
-	#enforce_expire = 14;
-
-	/* (*)enforce_delay
-	 * The number of seconds to delay nickchange enforcement settings
-	 * on nicks.
-	 */
-	#enforce_delay = 30;
-
-	/* (*)enforce_prefix
-	 * The prefix to use when changing the user's nick on enforcement
-	 */
-	#enforce_prefix = "Guest";
-
-	/* (*)cracklib_dict
-	 * The location and filename prefix of the cracklib dictionaries
-	 * for use with nickserv/cracklib. This must be provided if you are
-	 * going to be using nickserv/cracklib.
-	 */
-	#cracklib_dict = "/var/cache/cracklib/cracklib_dict";
-
-	/* (*)cracklib_warn
-	 * If this option is set and nickserv/cracklib is loaded, nickserv will just
-	 * warn users that their password is insecure, recommend they change it and
-	 * still register the nick. If this option is unset, it will refuse to
-	 * register the nick at all until the user chooses a better password.
-	 */
-	#cracklib_warn;
-
-	/* (*)emailexempts
-	 * A list of email addresses that will be exempt from the check of how many
-	 * accounts one user may have. Any email address in this block may register
-	 * an unlimited number of accounts/usernames.
-	 */
-	emailexempts {
-	};
-};
 
 /* ChanServ configuration.
  *

@@ -67,3 +67,42 @@ loadmodule "modules/nickserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/nickserv/<%= modname %>";<% end %>
 <% end %>
+
+nickserv {
+    <%= optional_boolean_directive("spam", @config, "spam") %>
+
+    <%= optional_boolean_directive("no_nick_ownership", @config, "no_nick_ownership") %>
+
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+
+    aliases {<% @config['aliases'].each do |name, target| %>
+        "<%= name %>" = "<%= target %>";<% end %>
+    };
+
+    // TODO
+    access {
+    };
+
+    maxnicks = <%= @config['maxnicks'] %>;
+
+    <%= optional_directive("expire", @config, "expire") %>
+    <%= optional_directive("enforce_expire", @config, "enforce_expire") %>
+    <%= optional_directive("enforce_delay", @config, "enforce_delay") %>
+    <%= optional_directive("enforce_prefix", @config, "enforce_prefix") %>
+
+    <%= optional_directive("cracklib_dict", @config, "cracklib_dict") %>
+    <%= optional_boolean_directive("cracklib_warn", @config, "cracklib_warn") %>
+
+    // TODO
+    /* (*)emailexempts
+     * A list of email addresses that will be exempt from the check of how many
+     * accounts one user may have. Any email address in this block may register
+     * an unlimited number of accounts/usernames.
+     */
+    emailexempts {
+    };
+};
+
