@@ -17,3 +17,22 @@ loadmodule "modules/gameserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/gameserv/<%= modname %>";<% end %>
 <% end %>
+
+/* GameServ configuration.
+ *
+ * The gameserv {} block contains settings specific to the GameServ modules.
+ *
+ * GameServ provides various in-channel commands for games.
+ */
+gameserv {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+
+    // TODO
+    aliases {
+    };
+    access {
+    };
+};

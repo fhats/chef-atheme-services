@@ -1,0 +1,14 @@
+loadmodule "modules/global/main";
+
+/* Global noticing configuration.
+ *
+ * The global {} block contains settings specific to the Global notice module.
+ *
+ * The Global notice module provides the ability to mass-notify a network.
+ */
+global {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+};

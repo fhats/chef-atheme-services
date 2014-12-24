@@ -1,4 +1,5 @@
 # chef-atheme-services
 
-TODO: Enter the cookbook description here.
+TODO: Documentation forthcoming. Reading the attributes files may get you off
+to a start.
 

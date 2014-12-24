@@ -1,0 +1,14 @@
+loadmodule "modules/misc/httpd";
+
+/* HTTP server configuration.
+ *
+ * The httpd {} block contains settings specific to the HTTP server module.
+ *
+ * The HTTP server in Services is used for serving XMLRPC requests. It can
+ * also serve static documents and statistics pages.
+ */
+httpd {
+    host = "<%= @config['host'] %>";
+    www_root = "<%= @config['www_root'] %>";
+    port = <%= @config['port'] %>;
+};

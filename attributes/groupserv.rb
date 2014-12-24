@@ -1,0 +1,32 @@
+default['atheme-services']['config']['groupserv']['enable'] = true
+
+default['atheme-services']['config']['groupserv']['enable_open_groups'] = true
+default['atheme-services']['config']['groupserv']['host'] = "services.int"
+default['atheme-services']['config']['groupserv']['join_flags'] = "+"
+default['atheme-services']['config']['groupserv']['maxgroupacs'] = 100
+default['atheme-services']['config']['groupserv']['maxgroups'] = 5
+default['atheme-services']['config']['groupserv']['nick'] = "GroupServ"
+default['atheme-services']['config']['groupserv']['real'] = "Group Management Services"
+default['atheme-services']['config']['groupserv']['user'] = "GroupServ"
+
+default['atheme-services']['config']['groupserv']['modules']['acsnolimit'] = true
+default['atheme-services']['config']['groupserv']['modules']['drop'] = true
+default['atheme-services']['config']['groupserv']['modules']['fdrop'] = true
+default['atheme-services']['config']['groupserv']['modules']['fflags'] = true
+default['atheme-services']['config']['groupserv']['modules']['flags'] = true
+default['atheme-services']['config']['groupserv']['modules']['help'] = true
+default['atheme-services']['config']['groupserv']['modules']['info'] = true
+default['atheme-services']['config']['groupserv']['modules']['join'] = true
+default['atheme-services']['config']['groupserv']['modules']['list'] = true
+default['atheme-services']['config']['groupserv']['modules']['listchans'] = true
+default['atheme-services']['config']['groupserv']['modules']['register'] = true
+default['atheme-services']['config']['groupserv']['modules']['regnolimit'] = true
+default['atheme-services']['config']['groupserv']['modules']['invite'] = false
+default['atheme-services']['config']['groupserv']['modules']['set'] = true
+default['atheme-services']['config']['groupserv']['modules']['set_channel'] = true
+default['atheme-services']['config']['groupserv']['modules']['set_description'] = true
+default['atheme-services']['config']['groupserv']['modules']['set_email'] = true
+default['atheme-services']['config']['groupserv']['modules']['set_joinflags'] = true
+default['atheme-services']['config']['groupserv']['modules']['set_open'] = true
+default['atheme-services']['config']['groupserv']['modules']['set_public'] = true
+default['atheme-services']['config']['groupserv']['modules']['set_url'] = true

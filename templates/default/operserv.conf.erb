@@ -46,3 +46,25 @@ loadmodule "modules/operserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/operserv/<%= modname %>";<% end %>
 <% end %>
+
+
+/* OperServ configuration.
+ *
+ * The operserv {} block contains settings specific to the OperServ modules.
+ *
+ * OperServ provides essential network management tools for IRC operators
+ * on the IRC network.
+ */
+operserv {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+
+    // TODO
+    aliases {
+    };
+    access {
+    };
+};
+

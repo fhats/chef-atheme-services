@@ -16,3 +16,22 @@ loadmodule "modules/rpgserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/rpgserv/<%= modname %>";<% end %>
 <% end %>
+
+/* RPGServ configuration.
+ *
+ * The rpgserv {} block contains settings specific to the RPGServ modules.
+ *
+ * RPGServ provides a facility for finding roleplaying channels.
+ */
+rpgserv {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+
+    // TODO
+    aliases {
+    };
+    access {
+    };
+};

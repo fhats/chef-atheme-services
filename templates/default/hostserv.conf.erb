@@ -21,3 +21,26 @@ loadmodule "modules/hostserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/hostserv/<%= modname %>";<% end %>
 <% end %>
+
+/* HostServ configuration.
+ *
+ * The hostserv {} block contains settings specific to the HostServ modules.
+ *
+ * HostServ provides advanced virtual host management.
+ */
+hostserv {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+
+    <%= optional_boolean_directive("request_per_nick", @config, "request_per_nick") %>
+
+    // TODO
+    aliases {
+        "APPROVE" = "ACTIVATE";
+        "DENY" = "REJECT";
+    };
+    access {
+    };
+};

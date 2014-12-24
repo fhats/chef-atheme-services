@@ -10,3 +10,16 @@ loadmodule "modules/statserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/statserv/<%= modname %>";<% end %>
 <% end %>
+
+/* StatServ configuration
+ *
+ * The statserv {} block contains settings specific to the StatServ modules.
+ *
+ * StatServ adds basic stats and split tracking.
+ */
+statserv {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+};

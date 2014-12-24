@@ -21,3 +21,17 @@ loadmodule "modules/saslserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/saslserv/<%= modname %>";<% end %>
 <% end %>
+
+/* SaslServ configuration.
+ *
+ * The saslserv {} block contains settings specific to the SaslServ modules.
+ *
+ * SaslServ provides an authentication agent which is compatible with the
+ * SASL over IRC (SASL/IRC) protocol extension.
+ */
+saslserv {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+};

@@ -20,3 +20,22 @@ loadmodule "modules/memoserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/memoserv/<%= modname %>";<% end %>
 <% end %>
+
+/* MemoServ configuration.
+ *
+ * The memoserv {} block contains settings specific to the MemoServ modules.
+ *
+ * MemoServ provides a note-taking service that you can use to send notes
+ * to offline users (provided they are registered with Services).
+ */
+memoserv {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+    aliases {
+    };
+    access {
+    };
+    maxmemos = <%= @config['maxmemos'] %>;
+};

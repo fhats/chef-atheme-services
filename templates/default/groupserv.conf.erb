@@ -30,3 +30,30 @@ loadmodule "modules/groupserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/groupserv/<%= modname %>";<% end %>
 <% end %>
+
+/* GroupServ configuration.
+ *
+ * The groupserv {} block contains settings specific to the GroupServ modules.
+ *
+ * GroupServ provides features for managing a collection of channels at once.
+ *
+ */
+groupserv {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+
+    // TODO
+    aliases {
+    };
+    access {
+    };
+
+    maxgroups = <%= @config['maxgroups'] %>;
+    maxgroupacs = <%= @config['maxgroupacs'] %>;
+
+    <%= optional_boolean_directive("enable_open_groups", @config, "enable_open_groups") %>
+
+    join_flags = "<%= @config['join_flags'] %>";
+};

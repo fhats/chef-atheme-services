@@ -17,3 +17,37 @@ loadmodule "modules/botserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/botserv/<%= modname %>";<% end %>
 <% end %>
+
+/* BotServ configuration.
+ *
+ * The botserv {} block contains settings specific to the BotServ modules.
+ *
+ * BotServ provides virtual channel bots.
+ */
+botserv {
+    /* (*)nick
+     * The nickname we want BotServ to have.
+     */
+    nick = "<%= @config['nick'] %>";
+
+    /* (*)user
+     * Sets the username used for this client.
+     */
+    user = "<%= @config['user'] %>";
+
+    /* (*)host
+     * The hostname used for this client.
+     */
+    host = "<%= @config['host'] %>";
+
+    /* (*)real
+     * The GECOS (real name) of the client.
+     */
+    real = "<%= @config['real'] %>";
+
+    /* (*)min_users
+     * Minimum number of users a channel must have before a Bot is allowed
+     * to be assigned to that channel.
+     */
+    min_users = <%= @config['min_users'] %>;
+};

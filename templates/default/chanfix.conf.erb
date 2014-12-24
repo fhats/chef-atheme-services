@@ -1,0 +1,17 @@
+loadmodule "modules/chanfix/main";
+
+/* CHANFIX configuration.
+ *
+ * The chanfix {} block contains settings specific to the CHANFIX modules.
+ *
+ * CHANFIX provides channel recovery services without registration, which
+ * allows users to maintain control of channels even if ChanServ is not used
+ * to register them.
+ */
+chanfix {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+    <%= optional_boolean_directive("autofix", @config, "autofix") %>
+};

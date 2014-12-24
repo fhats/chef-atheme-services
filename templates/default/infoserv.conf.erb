@@ -1,0 +1,37 @@
+loadmodule "modules/infoserv/main";
+
+/* InfoServ configuration
+ *
+ * The infoserv {} block contains settings specific to the InfoServ module.
+ *
+ * The InfoServ modules provides the ability to mass-notify a network and send
+ * news to users when they connect to the network.
+ */
+infoserv {
+    /* (*)nick
+     * Sets the nick used for InfoServ and sending out informational messages.
+     */
+    nick = "<%= @config['nick'] %>";
+
+    /* (*)user
+     * Sets the username used for this client.
+     */
+    user = "<%= @config['user'] %>";
+
+    /* (*)host
+     * The hostname used for this client,
+     */
+    host = "<%= @config['host'] %>";
+
+    /* (*)real
+     * The GECOS (real name) of the client.
+     */
+    real = "<%= @config['real'] %>";
+
+    /* (*)logoninfo_count
+     * The number of InfoServ messages a user will see upon connect.
+     * If there are more than this number, the user will be able to
+     * see the rest with /msg infoserv list .
+     */
+    logoninfo_count = <%= @config['logoninfo_count'] %>;
+};

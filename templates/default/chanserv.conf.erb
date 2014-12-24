@@ -1,5 +1,5 @@
 /* ChanServ modules.
- * 
+ *
  * Here you can disable or enable certain features of ChanServ, by
  * defining which modules are loaded. You can even disable ChanServ
  * entirely. Please note that ChanServ requires an authentication
@@ -76,3 +76,52 @@ loadmodule "modules/chanserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/chanserv/<%= modname %>";<% end %>
 <% end %>
+
+/* ChanServ configuration.
+ *
+ * The chanserv {} block contains settings specific to the ChanServ modules.
+ *
+ * ChanServ provides channel registration services, which allows users to own
+ * channels. It is not required, but is strongly recommended.
+ */
+chanserv {
+    nick = "<%= @config['nick'] %>";
+    user = "<%= @config['user'] %>";
+    host = "<%= @config['host'] %>";
+    real = "<%= @config['real'] %>";
+
+    aliases {<% @config['aliases'].each do |name, target| %>
+        "<%= name %>" = "<%= target %>";<% end %>
+    };
+
+    /* (*)access
+     * Command access changes for ChanServ.
+     */
+    access {
+    };
+
+    maxchans = <%= @config['maxchans'] %>;
+
+    <%= optional_boolean_directive("fantasy", @config, "fantasy") %>
+    <%= optional_boolean_directive("hide_xop", @config, "hide_xop") %>
+
+    templates {<% @config['templates'].each do |name, target| %>
+        "<%= name %>" = "<%= target %>";<% end %>
+    };
+    <%= optional_directive("deftemplates", @config, "deftemplates") %>
+
+    <%= optional_boolean_directive("changets", @config, "changets") %>
+
+    trigger = "<%= @config['trigger'] %>";
+
+    expire = <%= @config['expire'] %>;
+
+    maxchanacs = <%= @config['maxchanacs'] %>;
+    maxfounders = <%= @config['maxfounders'] %>;
+    <%= optional_directive("founder_flags", @config, "founder_flags", true) %>
+
+    <%= optional_directive("akick_time", @config, "akick_time", true) %>
+
+    antiflood_enforce_method = <%= @config['antiflood_enforce_method'] %>;
+};
+

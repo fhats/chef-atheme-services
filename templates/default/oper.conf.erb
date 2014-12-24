@@ -1,0 +1,34 @@
+/******************************************************************************
+ * OPERATOR AND PRIVILEGES CONFIGURATION SECTION.                             *
+ ******************************************************************************/
+
+/* Operator configuration
+ * See the PRIVILEGES document for more information.
+ * NOTE: All changes apply immediately upon rehash. You may need
+ * to send a signal (killall -HUP atheme-services) to regain control.
+ */
+/* (*) Operclasses specify groups of services operator privileges */
+/* The "user" operclass specifies privileges all users get.
+ * This may be empty (default) in which case users get no special privileges.
+ * If you use the security/cmdperm module, you will need to grant command: privileges
+ * to every command that you want users to be able to use.
+ */
+/* The "ircop" operclass specifies privileges all IRCops get.
+ * This may be empty in which case IRCops get no privs.
+ * At least chan:cmodes, chan:joinstaffonly and general:auspex are suggested.
+ */
+
+<% @config['operclass'].each do |cls, details| %>
+operclass "<%= cls %>" {
+    <%= optional_directive("extends", details, "extends") %>
+    privs {
+        <% details['privs'].each do |priv| %><%= priv %>;
+    <% end %>};
+    <%= optional_boolean_directive("needoper", details, "needoper") %>
+};
+<% end %>
+<% @config['operators'].each do |oper, details| %>
+operator "<%= oper %>" {
+    operclass = "<%= details['operclass'] %>";
+    <%= optional_directive("password", details, "password") %>
+};<% end %>

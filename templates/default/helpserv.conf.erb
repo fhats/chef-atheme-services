@@ -13,3 +13,31 @@ loadmodule "modules/helpserv/main";
 <% @config['modules'].each do |modname, enabled| %>
 <% if enabled %>loadmodule "modules/helpserv/<%= modname %>";<% end %>
 <% end %>
+
+/* HelpServ configuration
+ *
+ * The helpserv {} block contains settings specific to the HelpServ modules.
+ *
+ * HelpServ adds a few different ways for users to request help from network staff.
+ */
+helpserv {
+    /* (*)nick
+     * The nickname we want HelpServ to have.
+     */
+    nick = "<%= @config['nick'] %>";
+
+    /* (*)user
+     * The username we want HelpServ to have.
+     */
+    user = "<%= @config['user'] %>";
+
+    /* (*)host
+     * The hostname we want HelpServ to have.
+     */
+    host = "<%= @config['host'] %>";
+
+    /* (*)real
+     * The realname (gecos) information we want HelpServ to have.
+     */
+    real = "<%= @config['real'] %>";
+};
