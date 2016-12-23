@@ -4,7 +4,7 @@ maintainer_email 'fred.hatfull@gmail.com'
 license          'MIT'
 description      'Installs/Configures atheme-services'
 long_description 'Installs/Configures atheme-services'
-version          '0.1.0'
+version          '0.1.1'
 
 depends 'build-essential'
 
