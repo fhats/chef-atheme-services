@@ -10,13 +10,13 @@
 include_recipe "build-essential::default"
 
 atheme_version = node['atheme-services']['version'].to_s
-atheme_tarball = "atheme-services-#{atheme_version}.tar.bz2"
+atheme_tarball = "atheme-services-#{atheme_version}.tar.gz"
 atheme_tarball_url = node['atheme-services']['source']['url'] ||
-                     "http://atheme.net/downloads/#{atheme_tarball}"
+                     "https://github.com/atheme/atheme/archive/#{atheme_tarball}"
 
 build_base_path = Chef::Config['file_cache_path'].to_s || '/tmp'
 local_tarball_path = "#{build_base_path}/#{atheme_tarball}"
-unpacked_source = "#{node['atheme-services']['source']['unpack_location']}/#{::File.basename(local_tarball_path, ".tar.bz2")}"
+unpacked_source = "#{node['atheme-services']['source']['unpack_location']}/#{::File.basename(local_tarball_path, ".tar.gz")}"
 
 directory node['atheme-services']['source']['unpack_location'] do
   mode "0755"
@@ -41,7 +41,7 @@ end
 bash 'untar atheme-services source' do
   cwd ::File.dirname(local_tarball_path)
   code <<-EOH
-    tar jxf #{::File.basename(local_tarball_path)} -C #{node['atheme-services']['source']['unpack_location']} --no-same-permissions
+    tar zxf #{::File.basename(local_tarball_path)} -C #{node['atheme-services']['source']['unpack_location']} --no-same-permissions
     EOH
   user    node['atheme-services']['user']
   not_if { ::File.directory?(unpacked_source) }
